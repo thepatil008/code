@@ -1,0 +1,638 @@
+//Login Code
+
+package swing;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+import javax.swing.JTextField;
+
+public class login1 extends JFrame {
+	
+	JLabel label1, label2;
+	JTextField field1, field2;
+	JButton button1, button2;
+        
+	public login1() {
+		setLayout(null);
+		label1 = new JLabel("Username");
+		label2 = new JLabel("Pasword");
+		field1 = new JTextField(10);
+		field2 = new JTextField(10);
+		button1 = new JButton("Login");
+		button1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (field1.getText().equals("admin") && field2.getText().equals("admin"))  {
+					System.out.println("Login sucessful");
+					new home();
+					dispose();
+				} else {
+                    System.out.println("Invalid username and password");
+				}
+				
+			}
+		});
+		button2 = new JButton("Reset");
+		button2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				field1.setText("");
+				field2.setText("");
+				System.out.println("Reset");
+			}
+		});
+		
+		label1.setBounds(50,50,60,30);
+		field1.setBounds(120,50,100,30);
+		label2.setBounds(50,100,60,30);
+		field2.setBounds(120,100,100,30);
+		button1.setBounds(50,150,90,30);
+		button2.setBounds(150,150,90,30);
+		
+		add(label1);
+		add(field1);
+		add(label2);
+		add(field2);
+		add(button1);
+		add(button2);
+		setSize(400,400);
+		setVisible(true);
+		
+		
+		
+		
+	}
+	
+	public static void main(String[] args) {
+		new  login1();
+	}
+}
+
+
+//Home Code
+
+package com.ui;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
+public class Home extends JFrame {
+	JMenuBar bar;
+	JMenu m1, m2, m3, m4;
+	JMenuItem item1, item2, item3, item4, item5, item6, item7, item8, item9;
+
+	public Home() {
+		bar = new JMenuBar();
+		m1 = new JMenu("Employee");
+		m2 = new JMenu("Employee Details");
+		m3 = new JMenu("Accounts");
+		m4 = new JMenu("Utilities");
+		item1 = new JMenuItem("Add");
+		item1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Add();
+			}
+		});
+		item2 = new JMenuItem("Update");
+		item2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Update();
+			}
+		});
+		item3 = new JMenuItem("Delete");
+		item3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Delete();
+			}
+		});
+		item4 = new JMenuItem("Show Employees");
+		item4.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Show();
+			
+			}
+		});
+		item5 = new JMenuItem("Search Employee");
+		item5.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Search();
+			}
+		});
+		item6 = new JMenuItem("Show employee Salary");
+		item6.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Salary();
+			}
+		});
+		item7 = new JMenuItem("Help");
+		item7.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Help();
+			}
+		});
+		item8 = new JMenuItem("Thought of the day");
+		item8.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Thought();
+			}
+		});
+		item9 = new JMenuItem("Exit");
+		item9.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		add(bar);
+		bar.add(m1);
+		bar.add(m2);
+		bar.add(m3);
+		bar.add(m4);
+		m1.add(item1);
+		m1.add(item2);
+		m1.add(item3);
+		m2.add(item4);
+		m2.add(item5);
+		m3.add(item6);
+		m4.add(item7);
+		m4.add(item8);
+		m4.add(item9);
+
+		bar.setBounds(70, 10, 300, 30);
+
+		setLayout(null);
+		setSize(500, 500);
+		setVisible(true);
+	}
+
+	public static void main(String[] args) {
+		new Home();
+	}
+}
+
+
+//Add Code
+
+package com.ui;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import com.operations.Emp;
+import com.operations.Implementions;
+
+public class Add extends JFrame {
+	JLabel l1, l2, l3;
+	JTextField t1, t2, t3;
+	JButton b1;
+
+	public Add() {
+		l1 = new JLabel("Id");
+		l2 = new JLabel("Name");
+		l3 = new JLabel("Salary");
+		t1 = new JTextField(10);
+		t2 = new JTextField(10);
+		t3 = new JTextField(10);
+		b1 = new JButton("Save");
+		b1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Data Saved Successfully");
+				Emp emp = new Emp();
+				emp.setId(Integer.parseInt(t1.getText()));
+				emp.setName(t2.getText());
+				emp.setSalary(Double.parseDouble(t3.getText()));
+
+				Implementions implementions = new Implementions();
+				implementions.addEmp(emp);
+				dispose();
+			}
+		});
+
+		add(l1);
+		add(l2);
+		add(l3);
+		add(t1);
+		add(t2);
+		add(t3);
+		add(b1);
+
+		l1.setBounds(90, 50, 60, 30);
+		t1.setBounds(160, 50, 150, 30);
+		l2.setBounds(90, 100, 60, 30);
+		t2.setBounds(160, 100, 150, 30);
+		l3.setBounds(90, 150, 60, 30);
+		t3.setBounds(160, 150, 150, 30);
+		b1.setBounds(150, 200, 100, 30);
+		setLayout(null);
+		setSize(500, 500);
+		setVisible(true);
+		setTitle("Add Employee");
+	}
+}
+
+
+//Update Code
+
+package com.ui;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import com.operations.Emp;
+import com.operations.Implementions;
+
+public class Update extends JFrame {
+	JLabel l1, l2, l3;
+	JTextField t1, t2, t3;
+	JButton b1;
+
+	public Update() {
+		l1 = new JLabel("Id");
+		l2 = new JLabel("Name");
+		l3 = new JLabel("Salary");
+		t1 = new JTextField(10);
+		t2 = new JTextField(10);
+		t3 = new JTextField(10);
+		b1 = new JButton("Update");
+		b1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Data Update Successfully");
+				Emp emp = new Emp();
+				emp.setId(Integer.parseInt(t1.getText()));
+				emp.setName(t2.getText());
+				emp.setSalary(Double.parseDouble(t3.getText()));
+
+				Implementions implemations = new Implementions();
+				implemations.updateEmp(emp);
+
+				dispose();
+			}
+		});
+
+		add(l1);
+		add(l2);
+		add(l3);
+		add(t1);
+		add(t2);
+		add(t3);
+		add(b1);
+
+		l1.setBounds(90, 50, 60, 30);
+		t1.setBounds(160, 50, 150, 30);
+		l2.setBounds(90, 100, 60, 30);
+		t2.setBounds(160, 100, 150, 30);
+		l3.setBounds(90, 150, 60, 30);
+		t3.setBounds(160, 150, 150, 30);
+		b1.setBounds(150, 200, 100, 30);
+		setLayout(null);
+		setSize(500, 500);
+		setVisible(true);
+		setTitle("Update Employee");
+
+	}
+}
+
+
+//delete code
+
+package com.ui;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import com.operations.Emp;
+import com.operations.Implementions;
+
+public class Delete extends JFrame {
+	JLabel l1;
+	JTextField t1;
+	JButton b1;
+
+	public Delete() {
+		l1 = new JLabel("Id");
+		t1 = new JTextField(10);
+		b1 = new JButton("Delete");
+		b1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Data Deleted Successfully");
+				Emp emp = new Emp();
+				emp.setId(Integer.parseInt(t1.getText()));
+
+				Implementions implemations = new Implementions();
+				implemations.deleteEmp(emp);
+
+				dispose();
+			}
+		});
+
+		add(l1);
+		add(t1);
+		add(b1);
+
+		l1.setBounds(130, 50, 60, 30);
+		t1.setBounds(170, 50, 90, 30);
+		b1.setBounds(150, 100, 100, 30);
+		setLayout(null);
+		setSize(500, 500);
+		setVisible(true);
+		setTitle("Delete Employee");
+	}
+}
+
+
+//show code
+
+package com.ui;
+
+import java.awt.FlowLayout;
+import java.util.List;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import com.operations.Implementions;
+
+public class Show extends JFrame {
+	JTable t1;
+	JScrollPane sp;
+
+	public Show() {
+		setLayout(new FlowLayout());
+
+		Implementions implemations = new Implementions();
+		List<String[]> e_data = implemations.showEmp();
+
+		String[][] data = new String[e_data.size()][];
+
+		for (int i = 0; i < data.length; i++) {
+			data[i] = e_data.get(i);
+
+		}
+
+		String[] heading = { "Id", "Name", "Salary"};
+
+		t1 = new JTable(data, heading);
+
+		sp = new JScrollPane(t1);
+		add(sp);
+
+		setTitle("Show Employees");
+		setSize(500, 500);
+		setVisible(true);
+
+	}
+}
+
+
+//search code
+
+package com.ui;
+
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import com.operations.Emp;
+import com.operations.Implementions;
+
+public class Search extends JFrame {
+	JLabel l1, l2;
+	JTextField t1;
+	JButton b1;
+
+	public Search() {
+		l1 = new JLabel("Enter id");
+		l2 = new JLabel();
+		t1 = new JTextField(10);
+		b1 = new JButton("Search");
+		b1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Emp emp = new Emp();
+				emp.setId(Integer.parseInt(t1.getText()));
+				Implementions implementions = new Implementions();
+				String[] e_data = implementions.searchEmp(emp);
+				String new_str = "";
+				for (String string : e_data) {
+					new_str = new_str + " " + string;
+				}
+				l2.setText(new_str);
+
+			}
+		});
+
+		add(l1);
+		add(t1);
+		add(b1);
+		add(l2);
+
+		setLayout(new FlowLayout());
+		setSize(500, 500);
+		setVisible(true);
+		setTitle("Search Employee");
+
+	}
+}
+
+//salary code
+
+package com.ui;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+public class Salary extends JFrame {
+	JTable tb;
+	JScrollPane sp;
+
+	public Salary() {
+		String[][] data = { { "1", "Manu", "23000" }, { "2", "Rohan", "43000" }, { "3", "Purva", "65000" },
+				{ "4", "Sanket", "85000" } };
+		String[] heading = { "Id", "Name", "Salary" };
+		tb = new JTable(data, heading);
+		sp = new JScrollPane(tb);
+		add(sp);
+
+		setSize(500, 500);
+		setVisible(true);
+		setTitle("Show Employee Salary");
+	}
+}
+
+
+//help code
+
+package com.ui;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+public class Help extends JFrame {
+
+	JButton b1, b2, b3, b4, b5, b6;
+
+	public Help() {
+		b1 = new JButton("Add Employee");
+		b1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Add();
+				dispose();
+			}
+		});
+		b2 = new JButton("Update Employee");
+		b2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Update();
+				dispose();
+			}
+		});
+		b3 = new JButton("Delete Employee");
+		b3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Delete();
+				dispose();
+			}
+		});
+		b4 = new JButton("Show Employee");
+		b4.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Show();
+				dispose();
+			}
+		});
+		b5 = new JButton("Search Employee");
+		b5.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Search();
+				dispose();
+			}
+		});
+		b6 = new JButton("Show Employee Salary");
+		b6.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Salary();
+				dispose();
+			}
+		});
+
+		add(b1);
+		add(b2);
+		add(b3);
+		add(b4);
+		add(b4);
+		add(b5);
+		add(b6);
+
+		b1.setBounds(120, 50, 200, 30);
+		b2.setBounds(120, 100, 200, 30);
+		b3.setBounds(120, 150, 200, 30);
+		b4.setBounds(120, 200, 200, 30);
+		b5.setBounds(120, 250, 200, 30);
+		b6.setBounds(120, 300, 200, 30);
+
+		setLayout(null);
+		setSize(500, 500);
+		setVisible(true);
+		setTitle("Help");
+	}
+}
+
+
+//thought code
+
+package com.ui;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class Thought extends JFrame {
+	JLabel l1, l2;
+
+	public Thought() {
+		l1 = new JLabel("live what you love in life");
+		l2 = new JLabel("Life Thought");
+		add(l1);
+		add(l2);
+
+		l1.setBounds(50, 50, 500, 30);
+		l2.setBounds(250, 100, 100, 30);
+		setLayout(null);
+		setSize(500, 500);
+		setVisible(true);
+		setTitle("Thought of the day");
+	}
+}
+
+
+
